@@ -72,6 +72,28 @@ Install Python dependencies with `pip install -r requirements.txt` (PyMuPDF, skl
 ...). LLM access is configured via a `.env` file with an OpenAI-compatible API key
 (`OPENROUTER_API_KEY`; see the per-skill frontmatter for each node's model).
 
+## The original design deck
+
+The pipeline was introduced internally with a slide deck; the four core slides (scrubbed of
+client-identifying details) are included because they explain the design intent better than
+prose:
+
+**End-to-end overview — the problem and what the pipeline proves:**
+
+![deck overview](docs/img/deck/overview.png)
+
+**Q2 — how disclosed pain points map to concrete banking products:**
+
+![opportunity match](docs/img/deck/opportunity-match.png)
+
+**13-dimension cross-year cross-examination (strategy vs. finance, extracted blind):**
+
+![cross examination](docs/img/deck/cross-examination.png)
+
+**Quality gate — four reviewer perspectives, one scoring formula, <90 never ships:**
+
+![quality gate](docs/img/deck/quality-gate.png)
+
 ## Design notes
 
 - **Agent harness first, Dify first**: the pipeline started as a Dify workflow prototype and
