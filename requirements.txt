@@ -1,0 +1,17 @@
+pandas
+numpy
+scipy
+scikit-learn
+xgboost
+joblib
+matplotlib
+requests
+lxml
+PyMuPDF
+xlrd
+baostock
+
+# optional
+# akshare        # alternative A-share data source (flaky endpoints; baostock is the fallback)
+# headroom-ai    # content-aware HTML compression before LLM ingestion (built-in fallback exists)
+# pytest         # for tools/distress_model/test_*.py

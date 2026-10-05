@@ -1,0 +1,9 @@
+{
+  "name": "annual-report-analysis-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Multi-agent annual report analysis pipeline for wholesale banking credit & opportunity research",
+  "scripts": {
+    "test": "python -m pytest tools/distress_model -q"
+  }
+}
