@@ -12,30 +12,8 @@ each behind a versioned runbook and a JSON schema.
 
 ## Pipeline
 
-```mermaid
-flowchart TB
-    PDF["Annual report PDFs<br/>(HKEX / SZSE / company IR)"] --> FETCH["fetch-report agent"]
-    FETCH --> PARSE["parse_pdf.py<br/>PyMuPDF + Tesseract OCR hybrid"]
-    PARSE --> ROUTER["semantic-router agent<br/>chapter tagging"]
-    ROUTER --> EXT
+![pipeline](docs/img/pipeline.png)
 
-    subgraph EXT["4 extraction agents (parallel)"]
-        F["extract-finance"]
-        S["extract-strategy"]
-        E["extract-entities"]
-        V["extract-events"]
-    end
-
-    EXT --> FC["finance_calc.py<br/>DSO/DIO/DPO/CCC/GM — deterministic"]
-    EXT --> EV["entity_validator.py"]
-    EXT --> CC["contradiction_calc.py<br/>12 quantitative rules"]
-    CC --> CD["contradiction-detector agent<br/>13-dimension analysis"]
-    FC & EV & CD --> SYN["synthesize-review agent<br/>+ bank product framework (injected)"]
-    SYN --> REV{"3-perspective review<br/>auditor · CFO · risk officer"}
-
-    REV -- "score >= 90" --> OUT["styled HTML report<br/>every claim cited to source"]
-    REV -- "score < 90" --> FIX["surgical fix on the HTML<br/>(max 3 loops)"] --> REV
-```
 
 - **~50% of the pipeline is deterministic Python** (parse, chapter detection, finance calc,
   contradiction calc) — zero LLM tokens, fully reproducible.
@@ -50,7 +28,11 @@ flowchart TB
 `tools/distress_model/` is a complete, tested sub-project: an XGBoost financial-distress
 model trained on an A-share ST/non-ST panel (410 companies × 27 financial features,
 three-state labelling with no time peeking), **out-of-fold ROC-AUC 0.89** / PR-AUC 0.92 /
-Brier 0.134, with:
+Brier 0.134:
+
+![CDEW model card](docs/img/cdew-model-card.png)
+
+With:
 
 - per-company percentile comparison against industry baselines,
 - calibration, SHAP-style explainability, and percentile chart rendering,
